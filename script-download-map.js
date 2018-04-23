@@ -7,7 +7,7 @@ const mkdirp = require('mkdirp')
 // example: https://tiles1.pubgmap.net/maptiles/miramar/v3/5/31/31.png
 const zooms = [0, 1, 2, 3, 4] // 5 might be too many
 const baseurl = 'https://tiles3.pubgmap.net/maptiles' // tiles0-3 can be used, I think they are the same
-const maps = ['elevation-erangel/v7', 'erangel/v11', 'miramar/v5', 'elevation-miramar/v2','savage/v2']
+const maps = ['elevation-erangel/v5', 'erangel/v10', 'miramar/v3', 'elevation-miramar/v2','savage/v2']
 const downloadLoc = './static/maptiles'
 
 async function downloadImage (map, z, x, y) {
