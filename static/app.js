@@ -241,6 +241,7 @@ projection.setExtent([0, 0, 8192, 8192])
 function getMapSource (mapType) {
   const mapPath = mapType === 'erangel'
     ? 'erangel/v11'
+    : 'savage/v2'
     : 'miramar/v5'
   // if false, will use https://tiles2-v2.pubgmap.net/tiles/erangel/v11/{z}/{x}/{y}.png not sure if it is stable or not. But it will have more zoom, up to 5. Local only has up to 4
   let useLocalResource = false
@@ -288,6 +289,12 @@ const erangelMapLayer = new ol.layer.Tile({
 erangelMapLayer.visible = false
 erangelMapLayer.setZIndex(0)
 map.addLayer(erangelMapLayer)
+const savageMapLayer = new ol.layer.Tile({
+  source: getMapSource('savage')
+})
+savageMapLayer.visible = false
+savageMapLayer.setZIndex(0)
+map.addLayer(savageMapLayer)
 const miramarMapLayer = new ol.layer.Tile({
   source: getMapSource('miramar')
 })
@@ -595,9 +602,15 @@ const showMap = (isDesert) => {
   if (isDesert) {
     miramarMapLayer.setVisible(true)
     erangelMapLayer.setVisible(false)
+    savageMapLayer.setVisible(false)
   } else {
     miramarMapLayer.setVisible(false)
     erangelMapLayer.setVisible(true)
+    savageMapLayer.setVisible(false)
+  }else {
+    miramarMapLayer.setVisible(false)
+    erangelMapLayer.setVisible(false)
+    savageMapLayer.setVisible(true)
   }
 }
 
@@ -818,7 +831,7 @@ const updatePlayerLocs = () => {
       }
       appData.gsTime = res.data.gsTime
       // set map
-      vapp.$data.mapType = res.data.desert === true ? 'miramar' : 'erangel'
+      vapp.$data.mapType = res.data.desert === true ? 'miramar' : 'erangel': 'savage'
       // reset state
       appData.me = [-1, -1, 0, 0]
       appData.meGuid = -1
